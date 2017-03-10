@@ -14,10 +14,17 @@ import {
     Image,
     Text,
     TouchableHighlight
-} from 'react-native';
+} from 'react-native'
 
 
 export default class CheckBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isChecked: this.props.isChecked,
+        }
+    }
+
     static propTypes = {
         ...View.propTypes,
         leftText: React.PropTypes.string,
@@ -29,7 +36,7 @@ export default class CheckBox extends Component {
         checkedImage: React.PropTypes.element,
         unCheckedImage: React.PropTypes.element,
         onClick: React.PropTypes.func.isRequired,
-        isChecked: React.PropTypes.bool.isRequired
+        isChecked: React.PropTypes.bool
 
     }
     static defaultProps = {
@@ -43,18 +50,18 @@ export default class CheckBox extends Component {
         if (!this.props.leftText)return null;
         return (
             <Text style={[styles.leftText, this.props.leftTextStyle]}>{this.props.leftText}</Text>
-        );
+        )
     }
     _renderRight() {
         if (this.props.rightTextView)return this.props.rightTextView;
         if (!this.props.rightText)return null;
         return (
             <Text style={[styles.rightText, this.props.rightTextStyle]}>{this.props.rightText}</Text>
-        );
+        )
     }
 
     _renderImage() {
-        if (this.props.isChecked) {
+        if (this.state.isChecked) {
             return this.props.checkedImage ? this.props.checkedImage : this.genCheckedImage();
         } else {
             return this.props.unCheckedImage ? this.props.unCheckedImage : this.genCheckedImage();
@@ -62,18 +69,35 @@ export default class CheckBox extends Component {
     }
 
     genCheckedImage() {
-        var source = this.props.isChecked ? require('./img/ic_check_box.png') : require('./img/ic_check_box_outline_blank.png');
+        var source = this.state.isChecked ? require('./img/ic_check_box.png') : require('./img/ic_check_box_outline_blank.png');
 
         return (
             <Image source={source}/>
-        );
+        )
+    }
+
+    onClick() {
+        this.setState({
+            isChecked: !this.state.isChecked
+        })
+        this.props.onClick();
+    }
+
+    setChecked(isChecked) {
+        this.setState({
+            isChecked: isChecked
+        })
+    }
+
+    getChecked() {
+        return this.state.isChecked;
     }
 
     render() {
         return (
             <TouchableHighlight
                 style={this.props.style}
-                onPress={this.props.onClick}
+                onPress={()=>this.onClick()}
                 underlayColor='transparent'
             >
                 <View style={styles.container}>
@@ -82,7 +106,7 @@ export default class CheckBox extends Component {
                     {this._renderRight()}
                 </View>
             </TouchableHighlight>
-        );
+        )
     }
 }
 const styles = StyleSheet.create({
@@ -97,4 +121,4 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 10
     }
-});
+})
