@@ -14,7 +14,8 @@ import {
     Image,
     Text,
     TouchableHighlight
-} from 'react-native'
+} from 'react-native';
+import PropTypes from 'prop-types';
 
 
 export default class CheckBox extends Component {
@@ -27,16 +28,16 @@ export default class CheckBox extends Component {
 
     static propTypes = {
         ...View.propTypes,
-        leftText: React.PropTypes.string,
-        leftTextView: React.PropTypes.element,
-        rightText: React.PropTypes.string,
+        leftText: PropTypes.string,
+        leftTextView: PropTypes.element,
+        rightText: PropTypes.string,
         leftTextStyle: Text.propTypes.style,
-        rightTextView: React.PropTypes.element,
+        rightTextView: PropTypes.element,
         rightTextStyle: Text.propTypes.style,
-        checkedImage: React.PropTypes.element,
-        unCheckedImage: React.PropTypes.element,
-        onClick: React.PropTypes.func.isRequired,
-        isChecked: React.PropTypes.bool
+        checkedImage: PropTypes.element,
+        unCheckedImage: PropTypes.element,
+        onClick: PropTypes.func.isRequired,
+        isChecked: PropTypes.bool
 
     }
     static defaultProps = {
