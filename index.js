@@ -11,6 +11,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
+    ViewPropTypes,
     Image,
     Text,
     TouchableHighlight
@@ -27,7 +28,7 @@ export default class CheckBox extends Component {
     }
 
     static propTypes = {
-        ...View.propTypes,
+        ...(ViewPropTypes || View.propTypes),
         leftText: PropTypes.string,
         leftTextView: PropTypes.element,
         rightText: PropTypes.string,
